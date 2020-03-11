@@ -1,12 +1,10 @@
-import parrotyshop.interfaces.NotificationService;
-import parrotyshop.interfaces.PaymentsProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import parrotyshop.Customer;
-import parrotyshop.ProductsService;
 import parrotyshop.SalesService;
+import parrotyshop.interfaces.NotificationService;
+import parrotyshop.interfaces.PaymentsProvider;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class ParrotyShopTest {
