@@ -1,3 +1,5 @@
+package parrotyshop;
+
 public class ProductsService {
 
     public String getProduct() {

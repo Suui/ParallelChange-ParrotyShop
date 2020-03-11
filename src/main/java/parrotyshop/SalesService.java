@@ -1,3 +1,8 @@
+package parrotyshop;
+
+import parrotyshop.interfaces.NotificationService;
+import parrotyshop.interfaces.PaymentsProvider;
+
 public class SalesService {
 
     private final PaymentsProvider paymentsProvider;
@@ -16,7 +21,8 @@ public class SalesService {
 
     public void placeOrder() {
         paymentsProvider.pay(numberOfProducts * 5);
-        notificationService.sendSuccessfulPurchaseEmail(customer.email, "Thanks for buying!: 1 x The AmazinG parroty food");
+        notificationService.notifySale("Customer with email: " + customer.email + ", bought: " + numberOfProducts + " x The AmazinG parroty food");
+        notificationService.sendSuccessfulPurchaseEmail(customer.email, "Thanks for buying!: " + numberOfProducts + " x The AmazinG parroty food");
     }
 
     public void setCustomer(Customer customer) {

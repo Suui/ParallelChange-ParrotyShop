@@ -1,20 +1,27 @@
+import parrotyshop.interfaces.NotificationService;
+import parrotyshop.interfaces.PaymentsProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import parrotyshop.Customer;
+import parrotyshop.ProductsService;
+import parrotyshop.SalesService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class AmazingTest {
+public class ParrotyShopTest {
 
     private PaymentsProvider paymentsProvider;
     private NotificationService notificationService;
     private SalesService salesService;
+    private Customer customer;
 
     @BeforeEach
     public void setup() {
         paymentsProvider = mock(PaymentsProvider.class);
         notificationService = mock(NotificationService.class);
         salesService = new SalesService(paymentsProvider, notificationService);
+        customer = new Customer("parrotyFan", "parroty_fan@email.com");
     }
 
     @Test
@@ -29,6 +36,7 @@ public class AmazingTest {
         int productPrice = 5;
         int numberOfProducts = 3;
 
+        salesService.setCustomer(customer);
         salesService.orderQuantity(numberOfProducts);
         salesService.placeOrder();
 
@@ -36,23 +44,22 @@ public class AmazingTest {
     }
 
     @Test
-    public void notify_the_user_upon_successful_purchase() {
-        Customer customer = new Customer("parrotyFan", "parroty_fan@gmail.com");
+    public void notify_the_business_upon_successful_purchase() {
+        salesService.setCustomer(customer);
+        salesService.orderQuantity(2);
+        salesService.placeOrder();
 
+        verify(notificationService, times(1))
+                .notifySale("Customer with email: " + customer.email + ", bought: 2 x The AmazinG parroty food");
+    }
+
+    @Test
+    public void notify_the_user_upon_successful_purchase() {
         salesService.setCustomer(customer);
         salesService.orderQuantity(1);
         salesService.placeOrder();
 
         verify(notificationService, times(1))
                 .sendSuccessfulPurchaseEmail(customer.email, "Thanks for buying!: 1 x The AmazinG parroty food");
-    }
-
-    public static void main(String[] args) {
-        Customer customer = new Customer("parroty_fan", "parroty_fan@gmail.com");
-        String productName = new ProductsService().getProduct();
-        SalesService salesService = new SalesService(new FakePaymentProvider(), new FakeNotificationService());
-        salesService.setCustomer(customer);
-        salesService.orderQuantity(3);
-        salesService.placeOrder();
     }
 }
