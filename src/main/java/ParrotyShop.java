@@ -15,7 +15,6 @@ public class ParrotyShop {
 
     private static void firstPurchase() {
         Customer customer = new Customer("crazyCockatoo", "crazy_cockatoo@email.com");
-        String productName = new ProductsService().getProduct();
         SalesService salesService = new SalesService(new FakePaymentProvider(), new FakeNotificationService());
         salesService.setCustomer(customer);
         salesService.orderQuantity(5);
@@ -24,7 +23,6 @@ public class ParrotyShop {
 
     private static void secondPurchase() {
         Customer customer = new Customer("birdieThingie", "birdie_thingie@email.com");
-        String productName = new ProductsService().getProduct();
         SalesService salesService = new SalesService(new FakePaymentProvider(), new FakeNotificationService());
         salesService.setCustomer(customer);
         salesService.orderQuantity(1);
@@ -33,7 +31,6 @@ public class ParrotyShop {
 
     private static void thirdPurchase() {
         Customer customer = new Customer("McParroty", "mc_parroty@email.com");
-        String productName = new ProductsService().getProduct();
         SalesService salesService = new SalesService(new FakePaymentProvider(), new FakeNotificationService());
         salesService.setCustomer(customer);
         salesService.orderQuantity(3);

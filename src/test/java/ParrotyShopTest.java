@@ -25,13 +25,6 @@ public class ParrotyShopTest {
     }
 
     @Test
-    public void gets_the_products() {
-        String product = new ProductsService().getProduct();
-
-        assertThat(product).isEqualTo("The AmazinG parroty food");
-    }
-
-    @Test
     public void charges_the_price_in_coins() {
         int productPrice = 5;
         int numberOfProducts = 3;
